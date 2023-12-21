@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import carrito from '../../assets/carrito.png';
+import CartWidget from '../CartWidget';
 
 const NavBarComponent = () => {
     //la flecha indica que lo que pongamos dentro de las llaves se va a ejecutar (el cuerpo de la funcion)
@@ -29,7 +30,7 @@ const NavBarComponent = () => {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
-                <img src={carrito} alt='Carrito de compras' style={{ width: '35px', height: '35px' }}/>
+                <CartWidget/>
             </Container>
         </Navbar>
     )

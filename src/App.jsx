@@ -1,21 +1,44 @@
-//componentes
-import NavBarComponent from './components/NavBarComponents/NavBarComponent';
 import ItemListConteiner from './components/ItemListContainer/ItemListConteiner';
-
-//importacion de estilos de bootstrap
+import { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CountComponent from './components/CountComponent/CountComponent';
+import MainLayout from './layouts/MainLayout';
+import { getProducts } from './services/productsService';
 
-const App = () => { 
-  const condition = true;
+const App = () => {
+
+  const promesa = new Promise((resolve, reject) => {
+    const flag = true;
+    if(flag){
+      resolve("Promesa resuelta correctamente")
+    }else {
+      reject("Promesa se resuelve negativamente")
+    }
+  });
+
+  //se pone res por una convencion, que significa responsive y el .catch atrapa el rechazo de la funcion, basicamente trabajo la promesa cuando se resuelve y cuando no
+  promesa.then(res => console.log(res)).catch(error => console.error(error))
+
+
+  const [productsData, setProductsData] = UseState([])
+
+  useEffect(() => {
+    getProducts()
+    .then(response => {
+      setProductsData(response.data.products);
+    })
+      .catch(error => {
+        console.error(error);
+      })
+  }, [])
 
   return (
-      <div style={{width:'100vw', height:'100vh'}}>
-        <NavBarComponent /> 
-        <ItemListConteiner greeting="Bienvenidos a nuestra tienda" />
-        <ItemListConteiner greeting= "Otro componente" />
-      </div>
+      <MainLayout>
+        <ItemListConteiner productsData = {productsData} />
+        <CountComponent/>
+      </MainLayout>
   )
 }
 
-export default App
+export default App;
 
